@@ -1,7 +1,10 @@
-"""Run this first:  python check_setup.py
 
-It checks everything the experiments need and tells you what to fix. Safe to run many times.
+"""Check the environment and dependencies required for the experiments.
+
+Checks the Python version, installed packages, GPU availability,
+dataset files, GloVe embeddings and Hugging Face model access.
 """
+
 import importlib
 import json
 import platform

@@ -1,14 +1,21 @@
-"""Classical ML tier: TF-IDF (word 1-2 grams) + Multinomial NB / Logistic Regression / Linear SVM.
+"""#Classical Machine Learning Models
 
-Protocol
-  1. Tune each model (<= 8 configs) on the VALIDATION set using 100% of the training data.
-  2. Reuse the best config at every training fraction.
-  3. For each fraction/seed: fit on the (nested, stratified) subset, evaluate once on TEST.
-  Models are deterministic given the data, so 100% is run once; smaller fractions use 5 seeds
-  (the seed only changes which subset is drawn).
+This experiment uses TF-IDF vectorization with word-level unigrams and bigrams to convert text into numerical features. Three traditional machine learning classifiers are evaluated:
 
-Usage:  python run_ml.py                    # full study
-        python run_ml.py --quick            # fast smoke test
+- Multinomial Naive Bayes
+- Logistic Regression
+- Linear Support Vector Machine (SVM)
+
+# Experimental Protocol
+
+1. Each model is tuned using up to 8 hyperparameter configurations on the validation set, with the full training dataset.
+2. The best-performing configuration is selected and reused across all training data fractions.
+3. For each training fraction, a stratified subset of the training data is created, and the model is evaluated on the test set.
+4. The full training fraction (100%) is evaluated once because the models are deterministic for a fixed dataset and configuration. Smaller training fractions are evaluated using 5 different random seeds to account for subset selection variability.
+
+# Usage
+python run_ml.py          # Run the complete experiment
+python run_ml.py --quick  # Run a quick smoke test
 """
 import argparse
 import json

@@ -1,0 +1,20 @@
+{
+  "banking77__nb": {
+    "alpha": 0.03
+  },
+  "banking77__lr": {
+    "C": 100
+  },
+  "banking77__svm": {
+    "C": 1
+  },
+  "clinc150__nb": {
+    "alpha": 0.1
+  },
+  "clinc150__lr": {
+    "C": 100
+  },
+  "clinc150__svm": {
+    "C": 3
+  }
+}

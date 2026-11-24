@@ -1,13 +1,24 @@
-"""Pretrained tier: DistilBERT (distilbert-base-uncased) fine-tuned for intent classification.
+"""
+# Pretrained Transformer Model: DistilBERT
 
-Same protocol as the other runners: tune (4 configs: lr x batch size) on validation at 100% data
-with one seed, reuse the best config for every fraction/seed, early stopping on validation accuracy,
-test set evaluated once per final model.
+This experiment uses `distilbert-base-uncased`, a pretrained transformer model from Hugging Face, fine-tuned for intent classification.
 
-Needs internet access to the Hugging Face Hub the first time (use Colab / your machine) and a GPU.
+# Experimental Protocol
 
-Usage:  python run_bert.py                         # full study
-        python run_bert.py --quick                 # smoke test (1 epoch, tiny grid)
+1. Four hyperparameter configurations are tested using different learning rates and batch sizes on the validation set with 100% of the training data.
+2. The best configuration is selected and reused across all training fractions and random seeds.
+3. Early stopping is applied based on validation accuracy to prevent unnecessary training.
+4. The test set is evaluated once for each final trained model.
+
+# Requirements
+
+- Internet access is required for the initial download of DistilBERT from the Hugging Face Hub.
+- A GPU is recommended for faster training. The experiment can also run on a suitable CPU, although training will be slower.
+
+### Usage
+python run_bert.py          # Run the complete experiment
+python run_bert.py --quick  # Run a quick smoke test (1 epoch, smaller grid)
+
 """
 import argparse
 import copy

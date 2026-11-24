@@ -1,16 +1,29 @@
-"""Aggregate results, run the statistical plan, and draw the figures.
 
-Reads  outputs/results_ml.csv, results_nn.csv, results_bert.csv (whichever exist) + saved predictions.
-Writes outputs/tables/summary_100pct.csv, learning_curve_table.csv, significance.csv
-       outputs/figures/learning_curves.png, accuracy_vs_latency.png
+"""Analysis of model performance and comparison across ML and DL approaches.
 
-Statistical plan (per dataset)
-  * Representative model of each family = the best model by VALIDATION accuracy (not test accuracy),
-    using the seed with the median validation accuracy.
-  * Pairwise comparisons: best-ML vs best-NN, best-ML vs DistilBERT, best-NN vs DistilBERT.
-  * Paired bootstrap (10,000 resamples of test items) for the accuracy difference + 95% CI,
-    exact McNemar test on discordant pairs, Holm correction across the 3 comparisons.
+Combines the result files and saved predictions to generate performance
+summaries, learning curves, latency comparisons and statistical test results.
+
+Output files:
+  Tables:
+    - summary_100pct.csv
+    - learning_curve_table.csv
+    - significance.csv
+
+  Figures:
+    - learning_curves.png
+    - accuracy_vs_latency.png
+
+Statistical analysis (for each dataset):
+  - Selects the best model from each family using validation accuracy.
+    The representative run is selected using the median validation accuracy.
+  - Compares the selected ML, NN and DistilBERT models pairwise.
+  - Uses paired bootstrap resampling (10,000 samples) to estimate accuracy
+    differences and their 95% confidence intervals.
+  - Applies the exact McNemar test to compare prediction errors.
+  - Uses Holm correction to adjust p-values across the three comparisons.
 """
+
 import glob
 
 import matplotlib

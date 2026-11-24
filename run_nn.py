@@ -1,13 +1,5 @@
-"""Task-trained neural tier: BiLSTM and TextCNN (PyTorch), static GloVe embeddings.
-
-Same protocol as run_ml.py: tune (<= 8 configs) on validation at 100% data with one seed, reuse the
-best config for every fraction/seed, early stopping on validation accuracy, test set used once.
-
-GloVe: download glove.6B.300d.txt (https://nlp.stanford.edu/projects/glove/) into ./glove/.
-If the file is missing the embeddings are randomly initialised and a warning is printed
-(this is recorded in the results as glove=False, so don't mix such runs with GloVe runs).
-
-Usage:  python run_nn.py --models bilstm textcnn            # full study (use a GPU)
+"""
+Usage:  python run_nn.py --models bilstm textcnn            
         python run_nn.py --quick --models bilstm textcnn    # smoke test
 """
 import argparse

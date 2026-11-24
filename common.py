@@ -1,7 +1,7 @@
-"""Shared utilities for the ML vs DL intent-classification study.
+"""Common utilities used by all models in the intent classification study.
 
-Keeps every model family on identical data, splits, subsets, metrics and timing code,
-which is the core of the controlled design.
+Provides shared functions for loading datasets, creating train/validation/test splits,
+sampling training subsets, calculating evaluation metrics and measuring prediction latency.
 """
 import json
 import random
@@ -23,8 +23,8 @@ PRED_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def enable_quick_mode() -> None:
-    """Smoke tests (--quick) must never touch real results: send predictions to a separate folder."""
-    global PRED_DIR
+"""Use a separate folder for predictions generated during quick tests."""
+global PRED_DIR
     PRED_DIR = OUT / "quick_preds"
     PRED_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -60,7 +60,7 @@ def _norm(text: str) -> str:
 
 
 def load_dataset(name: str, verbose: bool = True):
-    """Return (train, val, test) DataFrames with columns text,label (int ids) and the label names.
+    """Load a dataset and return train, validation and test DataFrames with integer labels.
 
     banking77: official 10,003 train / 3,080 test; 10% of train held out (stratified, fixed
                seed 0) as validation because no official validation split exists.
@@ -141,7 +141,7 @@ def save_truth(dataset, y_true) -> None:
 
 
 class ResultStore:
-    """Append-only CSV so long runs can be resumed after a Colab disconnect."""
+    """Store experiment results in a CSV file so interrupted runs can be resumed."""
 
     def __init__(self, path):
         self.path = Path(path)
